@@ -72,6 +72,29 @@
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content" />
                  
- 
+ - Sign in 
+            
+            private void signIn() {
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+            }
+            
+- Intent sẽ mở ra dialog cho người dùng chọn Account để đăng nhập, nếu yêu cầu thêm về profile, email, openid, user cũng được nhắc quyền trong yêu cầu 
+- Sau khi chọn account, ta có thể lấy GoogleSignInAccount trong onActivityForResult()
+
+                @Override
+                public void onActivityResult(int requestCode, int resultCode, Intent data) {
+                    super.onActivityResult(requestCode, resultCode, data);
+
+                    // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+                    if (requestCode == RC_SIGN_IN) {
+                        // The Task returned from this call is always completed, no need to attach
+                        // a listener.
+                        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                        handleSignInResult(task);
+                    }
+                }
+- GoogleSignInAccount chứa thông tin về người dùng đã đăng nhập như name, mail,...
+
 
 
