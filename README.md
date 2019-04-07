@@ -44,6 +44,80 @@
             dependencies {
                 compile 'com.google.android.gms:play-services-auth:16.0.1'
             }
+            
+- Add meta data 
+
+                        <meta-data
+                android:name="com.facebook.sdk.ApplicationId"
+                android:value="@string/facebook_app_id" />
+
+            <activity
+                android:name="com.facebook.FacebookActivity"
+                android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                android:label="@string/app_name" />
+            <activity
+                android:name="com.facebook.CustomTabActivity"
+                android:exported="true">
+                <intent-filter><action android:name="android.intent.action.VIEW" />
+
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <category android:name="android.intent.category.BROWSABLE" />
+
+                    <data android:scheme="@string/fb_login_protocol_scheme" />
+                </intent-filter>
+            </activity>
+            
+- Khởi tạo Facebook SDK     
+            
+            @Override
+            public void onCreate() {
+                super.onCreate();
+                FacebookSdk.sdkInitialize(getApplicationContext());
+                AppEventsLogger.activateApp(this);
+            }
+            
+- Add button Sign in 
+
+             <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+                
+- Get access token 
+        
+            loginButton = (LoginButton) findViewById(R.id.login_button);
+            loginButton.setReadPermissions("email",  "public_profile");
+
+            // Callback registration
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    // Lấy access token sử dụng LoginResult
+                    AccessToken accessToken = loginResult.getAccessToken();
+                    getUserProfile(accessToken);
+                }
+
+                @Override
+                public void onCancel() {
+                    // App code
+                }
+
+                @Override
+                public void onError(FacebookException exception) {
+                    // App code
+                }
+            });
+        
+- Log out
+
+                LoginManager.getInstance().logOut();
+ 
 ### Add sign-in  
 - Cấu hình đăng nhập Google
 
