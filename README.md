@@ -213,4 +213,36 @@
                   System.out.println("Invalid ID token.");
                 }
 
+### Enableing Server-Side Access
+- Nếu bạn muốn server của mình có thể thực hiện các cuộc gọi API Google thay mặt cho người dùng có thể trong khi họ ngoại tuyến, thì server của bạn yêu cầu access token
+- Khi cấu hình Google Sign-in, built GoogleSignInOptions với method requestServerAuthCode, truyền server's client Id cho requestServerAuthcode
 
+                // Configure sign-in to request offline access to the user's ID, basic
+                // profile, and Google Drive. The first time you request a code you will
+                // be able to exchange it for an access token and refresh token, which
+                // you should store. In subsequent calls, the code will only result in
+                // an access token. By asking for profile access (through
+                // DEFAULT_SIGN_IN) you will also get an ID Token as a result of the
+                // code exchange.
+                String serverClientId = getString(R.string.server_client_id);
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestScopes(new Scope(Scopes.DRIVE_APPFOLDER))
+                        .requestServerAuthCode(serverClientId)
+                        .requestEmail()
+                        .build();
+                        
+- Get Auth Server code
+
+                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                    try {
+                        GoogleSignInAccount account = task.getResult(ApiException.class);
+                        String authCode = account.getServerAuthCode();
+
+                        // Show signed-un UI
+                        updateUI(account);
+
+                        // TODO(developer): send code to server and exchange for access/refresh/ID tokens
+                    } catch (ApiException e) {
+                        Log.w(TAG, "Sign-in failed", e);
+                        updateUI(null);
+                    }
