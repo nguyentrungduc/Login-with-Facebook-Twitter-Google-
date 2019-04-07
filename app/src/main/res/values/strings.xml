@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">LoginSocialNetwork</string>
+    <string name="fb_login_protocol_scheme">fb2782642521961191</string>
+    <string name="facebook_app_id">1510021665686083</string>
+    <string name="name">name</string>
+    <string name="id">id</string>
+    <string name="email">email</string>
+    <string name="link">link</string>
+    <string name="fields">fields</string>
+    <string name="gender">gender</string>
+    <string name="age_range">age_range</string>
+    <string name="birthday">birthday</string>
+    <string name="albums">albums</string>
+    <string name="education">education</string>
+    <string name="cover">cover</string>
+    <string name="photos">photos</string>
+    <string name="images">images</string>
+    <string name="work">work</string>
+    <string name="friends">friends</string>
+    <string name="likes">likes</string>
+    <string name="fields_name">id,name,link,email,gender,birthday,albums,education,cover,photos,friends,likes</string>
+    <string name="data">data</string>
 </resources>
