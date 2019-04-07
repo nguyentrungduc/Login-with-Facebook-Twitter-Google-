@@ -246,3 +246,50 @@
                         Log.w(TAG, "Sign-in failed", e);
                         updateUI(null);
                     }
+                    
+## Login with twitter
+- Tạo button Login twitter
+
+                <com.twitter.sdk.android.core.identity.TwitterLoginButton
+                 android:id="@+id/login_button"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" />
+                 
+ - Tạo call back
+ 
+                loginButton = (TwitterLoginButton) findViewById(R.id.login_button);
+                loginButton.setCallback(new Callback<TwitterSession>() {
+                   @Override
+                   public void success(Result<TwitterSession> result) {
+                       // Do something with result, which provides a TwitterSession for making API calls
+                   }
+
+                   @Override
+                   public void failure(TwitterException exception) {
+                       // Do something on failure
+                   }
+                });
+                
+### TwitterSession
+- Nếu đăng nhập hoàn tất thành công, TwitterSession sẽ được cung cấp trong kết quả thành công. TwitterSession này sẽ chứa toekn, scret, tên người dùng và ID người dùng của người dùng và trở thành session và được tự động duy trì. Nếu bạn cần truy xuất TwitterSession sau đó, bạn có thể làm như vậy bằng session manager
+            
+            TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+            TwitterAuthToken authToken = session.getAuthToken();
+            String token = authToken.token;
+            String secret = authToken.secret;
+            
+- Request email
+
+            TwitterAuthClient authClient = new TwitterAuthClient();
+            authClient.requestEmail(session, new Callback<String>() {
+                @Override
+                public void success(Result<String> result) {
+                    // Do something with the result, which provides the email address
+                }
+
+                @Override
+                public void failure(TwitterException exception) {
+                  // Do something on failure
+                }
+            });
+
