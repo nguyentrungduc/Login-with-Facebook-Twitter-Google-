@@ -15,9 +15,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import android.content.pm.PackageManager
 import android.util.Base64
+import com.twitter.sdk.android.core.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-
+import com.twitter.sdk.android.core.identity.TwitterAuthClient
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         FacebookSdk.sdkInitialize(applicationContext)
         AppEventsLogger.activateApp(this)
+        Twitter.initialize(this)
         getHashKey()
 
         callbackManager = CallbackManager.Factory.create()
@@ -81,6 +83,43 @@ class MainActivity : AppCompatActivity() {
                     Log.d("main", it.toString())
                 }
 
+
+        }
+
+        login_button.callback = object : Callback<TwitterSession>() {
+            override fun failure(exception: TwitterException?) {
+                Log.d("main", exception.toString())
+            }
+
+            override fun success(result: com.twitter.sdk.android.core.Result<TwitterSession>?) {
+                Log.d("main", result.toString())
+            }
+
+        }
+
+        val session = TwitterCore.getInstance().sessionManager.activeSession
+        if (session != null) {
+            val authToken = session.authToken
+            val token = authToken.token
+            val secret = authToken.secret
+        }
+
+        val authClient = TwitterAuthClient()
+        if (session != null) {
+            authClient.requestEmail(session, object : Callback<String>() {
+                override fun success(result: com.twitter.sdk.android.core.Result<String>?) {
+                    Log.d("main", result.toString())
+                }
+
+                override fun failure(exception: TwitterException) {
+                    Log.d("main", exception.toString())
+                }
+            })
+        }
+
+        get_button.setOnClickListener {
+            AccessToken.getCurrentAccessToken().permissions
+            AccessToken.getCurrentAccessToken().declinedPermissions
 
         }
 
