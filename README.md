@@ -17,6 +17,31 @@
 - Authorization Server (API): àm nhiệm vụ kiểm tra thông tin user (VD: ID), sau đó cấp quyền truy cập cho Application thông qua việc phát sinh "access token".
 - Resource Server và Authorization Server chính là điểm khác biệt cơ bản giữa OAuth2 và OAuth1 khi tách biệt được hai thao tác: chứng thực (Authorization) và cung cấp thông tin người dùng (Resource) thành 2 Server.
 
+             +--------+                               +---------------+
+                 |        |--(A)- Authorization Request ->|   Resource    |
+                 |        |                               |     Owner     |
+                 |        |<-(B)-- Authorization Grant ---|               |
+                 |        |                               +---------------+
+                 |        |
+                 |        |                               +---------------+
+                 |        |--(C)-- Authorization Grant -->| Authorization |
+                 | Client |                               |     Server    |
+                 |        |<-(D)----- Access Token -------|               |
+                 |        |                               +---------------+
+                 |        |
+                 |        |                               +---------------+
+                 |        |--(E)----- Access Token ------>|    Resource   |
+                 |        |                               |     Server    |
+                 |        |<-(F)--- Protected Resource ---|               |
+                 +--------+                               +---------------+
+
+- Application yêu cầu ủy quyền để truy cập vào Resource Server thông qua User
+- Nếu User ủy quyền cho yêu cầu trên, Application sẽ nhận được giấy ủy quyền từ phía User (dưới dạng một token string nào đó chẳng hạn)
+- Application gửi thông tin định danh (ID) của mình kèm theo giấy ủy quyền của User tới Authorization Server
+- Nếu thông tin định danh được xác thực và giấy ủy quyền hợp lệ, Authorization Server sẽ trả về cho Application access_token. - Đến đây quá trình ủy quyền hoàn tất.
+- Để truy cập vào tài nguyên (resource) từ Resource Server và lấy thông tin, Application sẽ phải đưa ra access_token để xác thực.
+- Nếu access_token hợp lệ, Resource Server sẽ trả về dữ liệu của tài nguyên đã được yêu cầu cho Application.
+
 ## Login with facebook
 ## SDK Facebook
 - SDK Facebook dành cho Android cho phép ta đăng nhập ứng dụng với Facebook. Khi ta đăng nhập với Facebook, ta có thể cấp quyền để truy xuất thông tin, hoặc thực hiện hành động trên Facebook thay mặt họ
