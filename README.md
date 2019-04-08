@@ -5,10 +5,17 @@
 ### Tại sao oauth2 lại ra mắt 
 - Oauth xuất hiện vào năm 2006, khi mà twitter phát triển hệ thống openId của họ , họ đã thống nhất nhiều bên gồm có facebook và google để thống nhất một "chuẩn" nhằm giúp cho application của bên thứ 3 có thể truy cập API của họ một cách dễ dàng hơn. Sau đó vào năm 2008, IETF (tổ chức chuyên đưa ra các chuẩn của internet) đã quyết định hỗ trợ cho chuẩn này, nhằm đưa ra một qui chuẩn thống nhất. Việc này dẫn đến bản RFC chính thức đầu tiên của oauth 1.0 vào năm 2010 (RFC 5849).
 
-Sau đó xảy ra một sự kiện không ngờ khi có một lỗi bào mật khá nghiệm trọng xảy ra trên oauth1, gọi là session fixation. Lỗi này giúp cho attacker có thể "trick" cho một application thuộc bên thứ 3 "trao" cho hắn cái quyền để access vào account/resource của một ai đó bất kì. Bạn có thể tưởng tượng tài khoản facebook của bạn đang được ai đó ung dung sử dụng mà bạn không hề biết orz ...
+- Sau đó xảy ra một sự kiện không ngờ khi có một lỗi bào mật khá nghiệm trọng xảy ra trên oauth1, gọi là session fixation. Lỗi này giúp cho attacker có thể "trick" cho một application thuộc bên thứ 3 "trao" cho hắn cái quyền để access vào account/resource của một ai đó bất kì. Bạn có thể tưởng tượng tài khoản facebook của bạn đang được ai đó ung dung sử dụng mà bạn không hề biết orz ...
 
-Sự kiện này dẫn đến sự ra đời của oauth2 vào 2012. Vào thời gian đầu thì oauth2 cũng có không ít lỗi bảo mật, ví dụ như bạn có thể sử dụng chrome để hack facebook :)). Cho đến hiện nay thì các chuyên gia an ninh mạng vẫn đang cảnh báo hàng ngày về các khe hở bảo mật của oauth2, tuy nhiên oauth2 vẫn được sử dụng rộng rãi. 
+- Sự kiện này dẫn đến sự ra đời của oauth2 vào 2012. Vào thời gian đầu thì oauth2 cũng có không ít lỗi bảo mật, ví dụ như bạn có thể sử dụng chrome để hack facebook :)). Cho đến hiện nay thì các chuyên gia an ninh mạng vẫn đang cảnh báo hàng ngày về các khe hở bảo mật của oauth2, tuy nhiên oauth2 vẫn được sử dụng rộng rãi. 
 ### Oauth2.0
+- OAuth2 làm việc với 4 đối tượng mang những vai trò riêng:
+
+- Resource Owner (User): Là những người dùng ủy quyền cho ứng dụng cho phép truy cập tài khoản của họ. Sau đó ứng dụng được phép truy cập vào những dữ liệu người dùng nhưng bị giới hạn bởi những phạm vi (scope) được cấp phép. (VD: chỉ đọc hay được quyền ghi dữ liệu) => chính là bạn.
+- Client (Application): Là những ứng dụng mong muốn truy cập vào dữ liệu người dùng. Trước khi được phép tương tác với dữ liệu thì ứng dụng này phải qua bước ủy quyền của User, và phải được kiểm tra xác nhận thông qua API. => Có thể hiểu là các ứng dụng sử dụng Facebook, Twitter, Google API chẳng hạn.
+- Resource Server (API): Nơi lưu trữ thông tin tài khoản của User và được bảo mật.
+- Authorization Server (API): àm nhiệm vụ kiểm tra thông tin user (VD: ID), sau đó cấp quyền truy cập cho Application thông qua việc phát sinh "access token".
+- Resource Server và Authorization Server chính là điểm khác biệt cơ bản giữa OAuth2 và OAuth1 khi tách biệt được hai thao tác: chứng thực (Authorization) và cung cấp thông tin người dùng (Resource) thành 2 Server.
 
 ## Login with facebook
 ## SDK Facebook
