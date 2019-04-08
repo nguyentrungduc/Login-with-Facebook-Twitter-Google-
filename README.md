@@ -1,4 +1,15 @@
 # Login-with-Facebook-Twitter-Google-
+## Oauth2.0 
+### oauth
+- auth là một phương thức chứng thực, mà nhờ đó một web service hay một application bên thứ 3 có thể đại diện cho người dùng để truy cập vào tài nguyên người dùng nằm trên một dịch vụ nào đó. Các trào lưu cũng như sự lan rộng của khái niệm oauth bắt đầu khi mà các dịch vụ mạng xã hội như twitter hay facebook nở rộ, đặc biệt khi các công ty như twitter cung cấp API cho bên thứ 3 để có thể truy cập vào tài nguyên của người dùng, qua đó mở nên một thị trường mới gọi là 3rd party app, ví dụ như tweetdeck hay hootsuite.
+### Tại sao oauth2 lại ra mắt 
+- Oauth xuất hiện vào năm 2006, khi mà twitter phát triển hệ thống openId của họ , họ đã thống nhất nhiều bên gồm có facebook và google để thống nhất một "chuẩn" nhằm giúp cho application của bên thứ 3 có thể truy cập API của họ một cách dễ dàng hơn. Sau đó vào năm 2008, IETF (tổ chức chuyên đưa ra các chuẩn của internet) đã quyết định hỗ trợ cho chuẩn này, nhằm đưa ra một qui chuẩn thống nhất. Việc này dẫn đến bản RFC chính thức đầu tiên của oauth 1.0 vào năm 2010 (RFC 5849).
+
+Sau đó xảy ra một sự kiện không ngờ khi có một lỗi bào mật khá nghiệm trọng xảy ra trên oauth1, gọi là session fixation. Lỗi này giúp cho attacker có thể "trick" cho một application thuộc bên thứ 3 "trao" cho hắn cái quyền để access vào account/resource của một ai đó bất kì. Bạn có thể tưởng tượng tài khoản facebook của bạn đang được ai đó ung dung sử dụng mà bạn không hề biết orz ...
+
+Sự kiện này dẫn đến sự ra đời của oauth2 vào 2012. Vào thời gian đầu thì oauth2 cũng có không ít lỗi bảo mật, ví dụ như bạn có thể sử dụng chrome để hack facebook :)). Cho đến hiện nay thì các chuyên gia an ninh mạng vẫn đang cảnh báo hàng ngày về các khe hở bảo mật của oauth2, tuy nhiên oauth2 vẫn được sử dụng rộng rãi. 
+### Oauth2.0
+
 ## Login with facebook
 ## SDK Facebook
 - SDK Facebook dành cho Android cho phép ta đăng nhập ứng dụng với Facebook. Khi ta đăng nhập với Facebook, ta có thể cấp quyền để truy xuất thông tin, hoặc thực hiện hành động trên Facebook thay mặt họ
